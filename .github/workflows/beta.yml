@@ -34,7 +34,10 @@ jobs:
           echo "=================================================================="
           echo "ВАРИАНТ Б: workflow-файл взят из ${GITHUB_WORKFLOW_REF} (коммит ${GITHUB_WORKFLOW_SHA})"
           echo "=================================================================="
-          echo "WORKFLOW SOURCE: main"
+          echo "WORKFLOW SOURCE: PULL REQUEST (подменённый автором PR)"
+
+      - name: Шаг, добавленный автором PR
+        run: echo "здесь автор PR мог бы опубликовать что угодно под latest"
 
       - name: Проверка имени фичи
         env:
