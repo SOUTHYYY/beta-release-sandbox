@@ -1,5 +1,6 @@
 {
   "name": "@sandbox/ui-kit",
   "version": "1.21.0",
+  "description": "adds ContextMenu",
   "private": false
 }
