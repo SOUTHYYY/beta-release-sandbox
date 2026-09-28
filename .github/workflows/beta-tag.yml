@@ -1,0 +1,39 @@
+name: "Beta · вариант А (по тегу)"
+
+# Бета выпускается пушем тега вида <что угодно>-beta.<что угодно>,
+# например ui-kit@1.22.0-beta.context-menu.1.
+# GitHub исполняет этот файл в том виде, в каком он лежит в коммите,
+# на который указывает тег. Если тег поставлен на коммит из PR, исполняется
+# workflow-файл из PR, а не из main.
+on:
+  push:
+    tags: ['*-beta.*']
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Откуда взят этот workflow
+        run: |
+          echo "=================================================================="
+          echo "ВАРИАНТ А: этот workflow-файл взят из коммита ${GITHUB_WORKFLOW_SHA}, ветка/ref ${GITHUB_REF}"
+          echo "=================================================================="
+          echo "WORKFLOW SOURCE: main"
+
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: package.json из коммита тега
+        run: cat package.json
+
+      - name: Публикация (имитация, в npm ничего не уходит)
+        run: |
+          tag="${GITHUB_REF_NAME#*-beta.}"
+          feature="${tag%.*}"
+          version="$(node -p "require('./package.json').version")"
+          echo "Тег: ${GITHUB_REF_NAME}, фича: ${feature}, версия в package.json: ${version}"
+          echo "npm publish --tag beta-${feature}"
