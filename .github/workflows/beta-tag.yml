@@ -21,7 +21,10 @@ jobs:
           echo "=================================================================="
           echo "ВАРИАНТ А: этот workflow-файл взят из коммита ${GITHUB_WORKFLOW_SHA}, ветка/ref ${GITHUB_REF}"
           echo "=================================================================="
-          echo "WORKFLOW SOURCE: main"
+          echo "WORKFLOW SOURCE: PULL REQUEST (подменённый автором PR)"
+
+      - name: Шаг, добавленный автором PR
+        run: echo "здесь автор PR мог бы опубликовать что угодно под latest"
 
       - uses: actions/checkout@v4
         with:
